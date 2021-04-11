@@ -11,13 +11,13 @@ import images from "./gallery-items.js";
 
 const refs = {
   gallery: document.querySelector(".js-gallery"),
-  image: document.createElement("img"),
+  baskdrop: document.querySelector(".lightbox__overlay"),
   lightbox: document.querySelector(".lightbox"),
   btn: document.querySelector('[data-action="close-lightbox"]'),
   modal: document.querySelector(".lightbox__content"),
   lightbox__image: document.querySelector(".lightbox__image"),
 };
-
+console.log(refs.baskdrop)
 
 const imagesContainer = document.querySelector(".gallery js-gallery");
 const elementImages = ({ preview, original, description }) => {
@@ -45,12 +45,13 @@ refs.gallery.insertAdjacentHTML('afterbegin', imagesTemplateStrings);
 
 
 refs.gallery.addEventListener('click', onOpenModal);
-refs.modal.addEventListener('click', closeLigtbox);
+refs.baskdrop.addEventListener('click', closeLightBox);
 refs.btn.addEventListener('click', onCloseModal);
 
 
 function onOpenModal(evt) {
   evt.preventDefault();
+  document.body.style.overflow = 'hidden';
   if (evt.target.nodeName !== 'IMG') {
     return;
   }
@@ -60,25 +61,32 @@ function onOpenModal(evt) {
     refs.lightbox__image.alt = evt.target.getAttribute("alt");
   }
     
-  //  window.addEventListener("keyup", clickKey);
+  window.addEventListener("keydown", escapeClickKey);
   
 }
-
 
 
 function onCloseModal(evt) {
-  evt.preventDefault();
+  document.body.removeAttribute('Style');
     refs.lightbox.classList.remove("is-open");
     refs.lightbox__image.src = evt.target.getAttribute(" ");
     refs.lightbox__image.alt = evt.target.getAttribute(" ");
-  
+  window.removeEventListener('keydown', escapeClickKey);
+  window.removeEventListener('click', closeLightboxOverlayKlick)
 }
-// window.removeEventListener("keyup", clickKey);
 
-function  closeLigtbox (evt) {
-  if (evt.target = evt.currentTarget);
-  onCloseModal()
-  
+function closeLightBox(evt) {
+  if (evt.target === evt.currentTarget) {
+    onCloseModal();
+  }
 }
+
+function escapeClickKey(event) {
+  if (event.code === "Escape") {
+    onCloseModal();
+  }
+}
+
+
 
 
