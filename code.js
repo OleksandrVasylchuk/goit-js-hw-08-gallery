@@ -17,7 +17,6 @@ const refs = {
   modal: document.querySelector(".lightbox__content"),
   lightbox__image: document.querySelector(".lightbox__image"),
 };
-console.log(refs.baskdrop)
 
 const imagesContainer = document.querySelector(".gallery js-gallery");
 const elementImages = ({ preview, original, description }) => {
@@ -55,13 +54,14 @@ function onOpenModal(evt) {
   if (evt.target.nodeName !== 'IMG') {
     return;
   }
-  if(evt.target.nodeName === 'IMG'){
+  
     refs.lightbox.classList.add("is-open");
     refs.lightbox__image.src = evt.target.getAttribute("data-source");
     refs.lightbox__image.alt = evt.target.getAttribute("alt");
-  }
+  
     
   window.addEventListener("keydown", escapeClickKey);
+  // window.addEventListener("keydown", onArrowPress);
   
 }
 
@@ -69,10 +69,11 @@ function onOpenModal(evt) {
 function onCloseModal(evt) {
   document.body.removeAttribute('Style');
     refs.lightbox.classList.remove("is-open");
-    refs.lightbox__image.src = evt.target.getAttribute(" ");
-    refs.lightbox__image.alt = evt.target.getAttribute(" ");
+    refs.lightbox__image.src = " ";
+    refs.lightbox__image.alt = " ";
   window.removeEventListener('keydown', escapeClickKey);
-  window.removeEventListener('click', closeLightboxOverlayKlick)
+  // window.removeEventListener('keydown', onArrowPress);
+  
 }
 
 function closeLightBox(evt) {
@@ -87,6 +88,73 @@ function escapeClickKey(event) {
   }
 }
 
+// function onArrowPress(e) {
+//   changeImage(e);
+// }
 
+// function changeImage(e) {
+//   const ArrowRight = e.code === 'ArrowRight';
+//   const ArrowLeft = e.code === 'ArrowLeft';
+//   let LightBoxImage = refs.lightbox__image.src; 
+
+//   images.forEach((item, index, arr) => {
+//     const nextImg = arr[index + 1]; 
+//     const prevImg = arr[index - 1]; 
+//     const originalImg = item.original; 
+
+//     if (ArrowRight && nextImg && refs.lightbox__image.src === originalImg) {
+//       LightBoxImage = nextImg.original;
+//     }
+
+//     if (ArrowLeft && prevImg && refs.lightbox__image === originalImg) {
+//       LightBoxImage = prevImg.original;
+//     }
+//   });
+
+//   if (refs.lightbox__image !== LightBoxImage) {
+//     refs.lightbox__image = LightBoxImage;
+//   }
+// }
+
+// document.addEventListener('keydown', eve => {
+//   const divCloseModal = document.querySelector('.lightbox__image');
+
+//   // Кнопка Esc //
+//   if (eve.code === 'Escape') {
+//     isOpen()
+//   }
+//   if (divEl.className.includes('is-open')) {
+//     const mapDefEl = defaultEl.map(value => value.original);
+//     const indElNum = Number(mapDefEl.indexOf(divCloseModal.src));
+
+//     // Кнопка влево, вверх //
+//     const mapDelLight = Number(mapDefEl.length) - 1;
+//     if (eve.code === 'ArrowLeft' || eve.code === 'ArrowUp') {
+//       if (eve.target.className === imgEl.className) {
+//         return;
+//       }
+//       const indLeftEl = indElNum - 1;
+//       divCloseModal.src = mapDefEl[indLeftEl];
+//       if (indElNum === 0) {
+//         divCloseModal.src = mapDefEl[mapDelLight];
+//       }
+//     }
+//     // Кнопка вправо, вниз //
+//     if (
+//       eve.code === 'ArrowRight' ||
+//       eve.code === 'ArrowDown' ||
+//       eve.code === 'Space'
+//     ) {
+//       if (eve.target.className === imgEl.className) {
+//         return;
+//       }
+//       const indEl = indElNum + 1;
+//       divCloseModal.src = mapDefEl[indEl];
+//       if (indEl === mapDefEl.length) {
+//         divCloseModal.src = mapDefEl[0];
+//       }
+//     }
+//   }
+// });
 
 
