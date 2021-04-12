@@ -18,7 +18,7 @@ const refs = {
   lightbox__image: document.querySelector(".lightbox__image"),
 };
 
-const imagesContainer = document.querySelector(".gallery js-gallery");
+
 const elementImages = ({ preview, original, description }) => {
     return `
     <li class="gallery__item">
@@ -60,33 +60,58 @@ function onOpenModal(evt) {
     refs.lightbox__image.alt = evt.target.getAttribute("alt");
   
     
-  window.addEventListener("keydown", escapeClickKey);
-  // window.addEventListener("keydown", onArrowPress);
+  window.addEventListener("keydown", onCloseModal);
+  // window.addEventListener("keydown", changeImage);
   
 }
 
 
 function onCloseModal(evt) {
-  document.body.removeAttribute('Style');
+  
     refs.lightbox.classList.remove("is-open");
     refs.lightbox__image.src = " ";
-    refs.lightbox__image.alt = " ";
-  window.removeEventListener('keydown', escapeClickKey);
-  // window.removeEventListener('keydown', onArrowPress);
+  refs.lightbox__image.alt = " ";
+  
+  document.body.removeAttribute('Style');
+  window.removeEventListener('keydown', onCloseModal);
+  // window.removeEventListener('keydown', changeImage);
   
 }
 
 function closeLightBox(evt) {
-  if (evt.target === evt.currentTarget) {
+  if (evt.target === evt.currentTarget || evt.code === "Escape") {
     onCloseModal();
   }
 }
 
-function escapeClickKey(event) {
-  if (event.code === "Escape") {
-    onCloseModal();
-  }
-}
 
+
+
+
+
+
+// function changeImage(e) {
+//   const ArrowRight = e.code === 'ArrowRight';
+//   const ArrowLeft = e.code === 'ArrowLeft';
+//   let LightBoxImage = refs.lightbox__image.src; 
+
+//   images.forEach((item, index, arr) => {
+//     const nextImg = arr[index + 1]; 
+//     const prevImg = arr[index - 1]; 
+//     const originalImg = item.original; 
+
+//     if (ArrowRight && nextImg && refs.lightbox__image.src === originalImg) {
+//       LightBoxImage = nextImg.original;
+//     }
+
+//     if (ArrowLeft && prevImg && refs.lightbox__image === originalImg) {
+//       LightBoxImage = prevImg.original;
+//     }
+//   });
+
+//   if (refs.lightbox__image !== LightBoxImage) {
+//     refs.lightbox__image = LightBoxImage;
+//   }
+// }
 
 
